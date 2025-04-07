@@ -42,14 +42,51 @@ main{
 
 .new{
     display: none;
+    grid-template-columns: 3fr 24px;
+    grid-template-rows: 40px 1fr;
     position: absolute;
-    top: 20%;
-    left: 35%;
+    right: 30%;
+    top: 15%;
     width: 666px;
     height: 666px;
     background-color: #1b2838;
     border: solid 2px #c7d5e0;
+    border-radius: 10px;
+    padding: 10px;
+    gap: 0px;
+    justify-items: start;
+}
+
+.title{
+    padding: 10px;
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    grid-row: 1;
+    grid-column: span 3;
+}
+
+.desc{
+    width: 100.2%;
+    padding: 10px;
+    resize: none;
+    grid-row: 2;
+    grid-column: span 3;
+    box-sizing: border-box;
+}
+
+.cancel{
     border-radius: 5px;
+    grid-row: 3;
+    grid-column: 1;
+    height: 20px;
+}
+
+.create{
+    border-radius: 5px;
+    grid-row: 3;
+    grid-column: 3;
+    height: 20px;
 }
 
 .add{

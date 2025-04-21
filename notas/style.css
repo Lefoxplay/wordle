@@ -1,3 +1,6 @@
+*{
+    box-sizing: border-box;
+}
 
 html{
     height: 100%;
@@ -70,7 +73,7 @@ main{
 }
 
 .desc{
-    width: 100.2%;
+    width: 100%;
     padding: 15px;
     margin: 10px 0px 10px 0px;
     background-color: #2a475e;
@@ -128,8 +131,8 @@ main{
     height: 75px;
     width: 75px;
     position: absolute;
-    left: 15px;
-    bottom: 15px;
+    left: 25px;
+    bottom: 25px;
     display: flex;
     justify-content: center;    
     align-items: center;

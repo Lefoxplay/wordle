@@ -65,7 +65,7 @@ $('.cancel').addEventListener("click", function (e) {
 })
 $('.create').addEventListener("click", function (e) {
     $('.new').style.display='none';
-    NotesDiv.appendChild(addElement());
+    NotesDiv.appendChild(addNote());
     cleanNote();
 })
 

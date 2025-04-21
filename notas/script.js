@@ -1,71 +1,83 @@
-const $ = (selector) => document.querySelector(selector);
-const $$ = (selector) => document.querySelectorAll(selector);
 
-let NotesDiv = $('#listNotes');
+    const $ = (selector) => document.querySelector(selector);
+    const $$ = (selector) => document.querySelectorAll(selector);
 
-function infoNote() {
-    let newTitle = $('#newTitle').value;
-    let newDesc = $('#newDesc').value;
-    let jinfo = {
-        title: newTitle, 
+    let NotesDiv = $('#listNotes');
+
+    function infoNote() {
+      let newTitle = $('#newTitle').value.trim();
+      let newDesc = $('#newDesc').value.trim();
+      let jinfo = {
+        title: newTitle,
         desc: newDesc
+      };
+      return jinfo;
     }
-    return jinfo;
-}
 
-function addNote() {
-    let nDivs = 1;
-    while (document.getElementById(`Note ${nDivs}`)) {
-        nDivs++;
+    function createNoteElement({ title, desc }, index) {
+      const note = document.createElement('div');
+      note.className = 'note';
+      note.id = `Note-${index}`;
+
+      const titleDiv = document.createElement('div');
+      titleDiv.className = 'note-title';
+      titleDiv.textContent = title;
+
+      const descDiv = document.createElement('div');
+      descDiv.className = 'note-desc';
+      descDiv.textContent = desc;
+
+      const delBtn = document.createElement('div');
+      delBtn.className = 'note-delbtn';
+
+      note.appendChild(titleDiv);
+      note.appendChild(descDiv);
+      note.appendChild(delBtn);
+
+      return note;
     }
-    let newNote = document.createElement('div');
-    newNote.id = `Note ${nDivs}`;
-    let title = addTitle();
-    let desc = addDesc();
-    newNote.appendChild(title);
-    newNote.appendChild(desc);
-    return newNote;
-}
 
-function addTitle() {
-    let nDivs = 1;
-    while (document.getElementById(`NoteTitle ${nDivs}`)) {
-        nDivs++;
+    function renderNotes() {
+      NotesDiv.innerHTML = '';
+      const notes = JSON.parse(localStorage.getItem('notes')) || [];
+      notes.forEach((note, i) => {
+        const noteElement = createNoteElement(note, i);
+        NotesDiv.appendChild(noteElement);
+      });
     }
-    let newNote = document.createElement('div');
-    newNote.id = `NoteTitle ${nDivs}`;
-    let jinfo = infoNote();
-    newNote.innerText = jinfo.title;
-    return newNote;
-}
 
-function addDesc() {
-    let nDivs = 1;
-    while (document.getElementById(`NoteDesc ${nDivs}`)) {
-        nDivs++;
+    function saveNote() {
+      const newNote = infoNote();
+      if (!newNote.title || !newNote.desc) {
+        alert("Completa ambos campos para guardar la nota.");
+        return;
+      }
+
+      const notes = JSON.parse(localStorage.getItem('notes')) || [];
+      notes.push(newNote);
+      localStorage.setItem('notes', JSON.stringify(notes));
+      renderNotes();
     }
-    let newNote = document.createElement('div');
-    newNote.id = `NoteDesc ${nDivs}`;
-    let jinfo = infoNote();
-    newNote.innerText = jinfo.desc;
-    return newNote;
-}
 
-function cleanNote() {
-    $('#newTitle').value = "";
-    $('#newDesc').value = "";
-}
-$('.add').addEventListener("click", function (e) {
-    $('.new').style.display='grid';
-})
+    function cleanNote() {
+      $('#newTitle').value = "";
+      $('#newDesc').value = "";
+    }
 
-$('.cancel').addEventListener("click", function (e) {
-    $('.new').style.display='none';
-    cleanNote();
-})
-$('.create').addEventListener("click", function (e) {
-    $('.new').style.display='none';
-    NotesDiv.appendChild(addElement());
-    cleanNote();
-})
+    $('.add').addEventListener("click", () => {
+      $('.new').style.display = 'grid';
+    });
 
+    $('.cancel').addEventListener("click", () => {
+      $('.new').style.display = 'none';
+      cleanNote();
+    });
+
+    $('.create').addEventListener("click", () => {
+      $('.new').style.display = 'none';
+      saveNote();
+      cleanNote();
+    });
+
+    // Renderiza notas al cargar
+    window.addEventListener('DOMContentLoaded', renderNotes);

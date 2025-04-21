@@ -149,9 +149,18 @@ main{
 
 #listNotes {
     display: flex;
-    justify-content: center;    
+    justify-content: flex-start;    
     align-items: flex-start;
+    width: 100%;
+    flex-flow: column;
 }
-[class^='Note'] {
+[id^='Note '] {
+    border: solid 2px #c7d5e0;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 10px;
+}
 
+[id^='NoteTitle'] {
+    font-weight: 1000;
 }

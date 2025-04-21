@@ -10,7 +10,6 @@ function infoNote() {
         title: newTitle, 
         desc: newDesc
     }
-    console.log(jinfo)
     return jinfo;
 }
 
@@ -52,12 +51,21 @@ function addDesc() {
     return newNote;
 }
 
+function cleanNote() {
+    $('#newTitle').value = "";
+    $('#newDesc').value = "";
+}
 $('.add').addEventListener("click", function (e) {
     $('.new').style.display='grid';
 })
 
+$('.cancel').addEventListener("click", function (e) {
+    $('.new').style.display='none';
+    cleanNote();
+})
 $('.create').addEventListener("click", function (e) {
     $('.new').style.display='none';
-    NotesDiv.appendChild(addNote());
+    NotesDiv.appendChild(addElement());
+    cleanNote();
 })
 
